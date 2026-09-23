@@ -1,40 +1,24 @@
-/* BARBARAC — decorative "ice cream scoop" texture
-   Подключается ПОСЛЕ styles.css, ничего в нём не переопределяет —
-   только добавляет фоновые пятна/крапинки. Версия 2 — заметнее. */
+/* BARBARAC — decorative texture, v3
+   Сдержанный, "премиальный" вариант: без разноцветных шариков-конфетти.
+   Один тон, тонкая линия, лёгкое зерно бумаги — в духе editorial-дизайна.
+   Подключается ПОСЛЕ styles.css, ничего в нём не переопределяет. */
 
-/* ---------- ВСЯ СТРАНИЦА: лёгкая "россыпь" кружочков по фону body ---------- */
-/* Это видно на любом участке, где нет своего фона у секции (hero, statement, heritage) */
+/* ---------- Лёгкое зерно бумаги по всему сайту (монохром, едва заметно) ---------- */
 
 body {
   background-color: var(--cream);
   background-image:
-    radial-gradient(circle, var(--orange) 0 7px, transparent 8px),
-    radial-gradient(circle, #8a9b70 0 5px, transparent 6px),
-    radial-gradient(circle, var(--yellow) 0 6px, transparent 7px),
-    radial-gradient(circle, var(--ink) 0 4px, transparent 5px);
+    radial-gradient(circle, var(--ink) 0 1px, transparent 1.4px);
   background-repeat: repeat;
-  background-size:
-    260px 260px,
-    260px 260px,
-    260px 260px,
-    260px 260px;
-  background-position:
-    0 0,
-    90px 140px,
-    170px 30px,
-    50px 200px;
+  background-size: 22px 22px;
+  background-position: 0 0;
 }
-
-/* делаем крапинки видимыми, но не навязчивыми */
+/* сама точка едва видна за счёт крошечного размера — воспринимается как фактура бумаги, а не узор */
 body {
   background-blend-mode: normal;
 }
 
-/* Applying opacity to background-image directly isn't possible in CSS,
-   so the dot colors above are intentionally small/sparse. Below we add
-   bigger, clearly visible blurred "scoop" blobs behind key sections. */
-
-/* ---------- HERO: два крупных пятна-"шарика", смещены, чтобы НЕ прятаться под жёлтым кругом ---------- */
+/* ---------- HERO: один мягкий тёплый отсвет, без ярких пятен ---------- */
 
 .hero {
   position: relative;
@@ -46,38 +30,23 @@ body {
   z-index: 1;
 }
 
-.hero::before,
-.hero::after {
+.hero::before {
   content: "";
   position: absolute;
   z-index: 0;
+  width: 46%;
+  aspect-ratio: 1;
+  max-width: 520px;
+  top: -14%;
+  left: 2%;
   border-radius: 50%;
-  filter: blur(2px);
+  filter: blur(40px);
+  background: radial-gradient(circle, var(--yellow) 0%, transparent 68%);
+  opacity: 0.18;
   pointer-events: none;
 }
 
-/* пятно над текстом слева — раньше пряталось под hero-art, теперь смещено на сторону текста */
-.hero::before {
-  width: 40%;
-  aspect-ratio: 1;
-  max-width: 420px;
-  top: -12%;
-  left: 4%;
-  background: radial-gradient(circle at 32% 28%, #fff, var(--orange) 72%);
-  opacity: 0.28;
-}
-
-.hero::after {
-  width: 24%;
-  aspect-ratio: 1;
-  max-width: 280px;
-  bottom: -10%;
-  left: -2%;
-  background: radial-gradient(circle at 32% 28%, #fff, #8a9b70 72%);
-  opacity: 0.22;
-}
-
-/* ---------- MENU: заметная россыпь шариков поверх бумажного фона ---------- */
+/* ---------- MENU: тонкая линейная "капля" мороженого как водяной знак, не узор ---------- */
 
 .menu-section {
   position: relative;
@@ -95,23 +64,19 @@ body {
   content: "";
   position: absolute;
   z-index: 0;
-  inset: 0;
-  opacity: 0.22;
+  right: -4%;
+  bottom: -8%;
+  width: 30%;
+  max-width: 340px;
+  aspect-ratio: 0.8;
+  opacity: 0.05;
   pointer-events: none;
-  background-image:
-    radial-gradient(circle, var(--orange) 0 46px, transparent 47px),
-    radial-gradient(circle, var(--ink) 0 30px, transparent 31px),
-    radial-gradient(circle, var(--yellow) 0 38px, transparent 39px),
-    radial-gradient(circle, #8a9b70 0 24px, transparent 25px);
   background-repeat: no-repeat;
-  background-position:
-    4% 14%,
-    92% 8%,
-    94% 82%,
-    8% 90%;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 260' fill='none' stroke='%2320201d' stroke-width='2'%3E%3Cpath d='M100 250 L70 140 A45 45 0 1 1 130 140 Z'/%3E%3Cpath d='M55 130 A45 30 0 0 0 145 130'/%3E%3Ccircle cx='100' cy='95' r='42'/%3E%3Ccircle cx='60' cy='70' r='30'/%3E%3Ccircle cx='140' cy='75' r='26'/%3E%3C/svg%3E");
 }
 
-/* ---------- HERITAGE: тёплое пятно за эмблемой ---------- */
+/* ---------- HERITAGE: тонкий контур того же "шарика" рядом с эмблемой ---------- */
 
 .heritage {
   position: relative;
@@ -127,47 +92,31 @@ body {
   content: "";
   position: absolute;
   z-index: 0;
-  width: 28%;
-  aspect-ratio: 1;
-  max-width: 360px;
-  right: -8%;
+  right: 2%;
   top: 50%;
   transform: translateY(-50%);
-  border-radius: 50%;
-  filter: blur(2px);
-  background: radial-gradient(circle at 32% 28%, #fff, var(--yellow) 78%);
-  opacity: 0.30;
+  width: 22%;
+  max-width: 260px;
+  aspect-ratio: 0.8;
+  opacity: 0.06;
   pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 260' fill='none' stroke='%2320201d' stroke-width='2'%3E%3Cpath d='M100 250 L70 140 A45 45 0 1 1 130 140 Z'/%3E%3Cpath d='M55 130 A45 30 0 0 0 145 130'/%3E%3Ccircle cx='100' cy='95' r='42'/%3E%3Ccircle cx='60' cy='70' r='30'/%3E%3Ccircle cx='140' cy='75' r='26'/%3E%3C/svg%3E");
 }
 
-/* ---------- Маленький "шарик" вместо точки перед заголовком группы ---------- */
+/* ---------- Заголовки групп меню: тонкая линия-подчёркивание вместо цветной точки ---------- */
 
-.flavor-group h3::before {
-  content: "";
-  display: inline-block;
-  width: 0.6em;
-  height: 0.6em;
-  margin-right: 0.4em;
-  border-radius: 50%;
-  vertical-align: middle;
-  background: radial-gradient(circle at 32% 28%, #fff, var(--ink) 78%);
-}
-
-.flavor-group.signature h3::before {
-  background: radial-gradient(circle at 32% 28%, #fff, var(--orange) 78%);
-}
-
-.flavor-group.sorbets h3::before {
-  background: radial-gradient(circle at 32% 28%, #fff, #8a9b70 78%);
+.flavor-group h3 {
+  position: relative;
+  padding-left: 0;
 }
 
 @media (max-width: 800px) {
-  .hero::before,
-  .hero::after,
-  .heritage::before {
-    opacity: 0.16;
+  body {
+    background-size: 18px 18px;
   }
-  .menu-section::before {
-    opacity: 0.14;
+  .hero::before {
+    opacity: 0.12;
   }
 }
