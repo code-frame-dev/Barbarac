@@ -3,21 +3,6 @@
    Один тон, тонкая линия, лёгкое зерно бумаги — в духе editorial-дизайна.
    Подключается ПОСЛЕ styles.css, ничего в нём не переопределяет. */
 
-/* ---------- Лёгкое зерно бумаги по всему сайту (монохром, едва заметно) ---------- */
-
-body {
-  background-color: var(--cream);
-  background-image:
-    radial-gradient(circle, var(--ink) 0 1px, transparent 1.4px);
-  background-repeat: repeat;
-  background-size: 22px 22px;
-  background-position: 0 0;
-}
-/* сама точка едва видна за счёт крошечного размера — воспринимается как фактура бумаги, а не узор */
-body {
-  background-blend-mode: normal;
-}
-
 /* ---------- HERO: один мягкий тёплый отсвет, без ярких пятен ---------- */
 
 .hero {
@@ -113,9 +98,6 @@ body {
 }
 
 @media (max-width: 800px) {
-  body {
-    background-size: 18px 18px;
-  }
   .hero::before {
     opacity: 0.12;
   }
