@@ -1,1 +1,141 @@
+/* BARBARAC — decorative "ice cream scoop" texture
+   Подключается ПОСЛЕ styles.css, ничего в нём не переопределяет —
+   только добавляет фоновые декоративные пятна/крапинки через ::before/::after.
+   Цвета взяты из основной палитры сайта (var(--orange), var(--yellow), var(--ink))
+   плюс зелёный акцент сорбетов (#8a9b70), чтобы всё было в тон. */
 
+/* ---------- HERO: мягкие пятна-"шарики" по краям блока ---------- */
+
+.hero {
+  position: relative;
+}
+
+.hero-copy,
+.hero-art {
+  position: relative;
+  z-index: 1;
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.hero::before {
+  width: 42%;
+  aspect-ratio: 1;
+  max-width: 480px;
+  top: -10%;
+  right: -6%;
+  background: radial-gradient(circle at 32% 28%, #fff, var(--orange) 72%);
+  opacity: 0.14;
+}
+
+.hero::after {
+  width: 22%;
+  aspect-ratio: 1;
+  max-width: 260px;
+  bottom: -8%;
+  left: -4%;
+  background: radial-gradient(circle at 32% 28%, #fff, #8a9b70 72%);
+  opacity: 0.12;
+}
+
+/* ---------- MENU: лёгкая россыпь мелких шариков на паперном фоне ---------- */
+
+.menu-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-heading,
+.menu-grid,
+.price-note {
+  position: relative;
+  z-index: 1;
+}
+
+.menu-section::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  opacity: 0.09;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, var(--orange) 0 40px, transparent 41px),
+    radial-gradient(circle, var(--ink) 0 26px, transparent 27px),
+    radial-gradient(circle, var(--yellow) 0 32px, transparent 33px),
+    radial-gradient(circle, #8a9b70 0 20px, transparent 21px);
+  background-repeat: no-repeat;
+  background-position:
+    6% 16%,
+    90% 10%,
+    92% 80%,
+    10% 88%;
+}
+
+/* ---------- HERITAGE: одно тёплое пятно за эмблемой ---------- */
+
+.heritage {
+  position: relative;
+}
+
+.heritage-emblem,
+.heritage > div {
+  position: relative;
+  z-index: 1;
+}
+
+.heritage::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 26%;
+  aspect-ratio: 1;
+  max-width: 340px;
+  right: -6%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  filter: blur(1px);
+  background: radial-gradient(circle at 32% 28%, #fff, var(--yellow) 72%);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+/* ---------- Маленький "шарик" вместо обычной точки перед заголовком группы ---------- */
+
+.flavor-group h3::before {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.4em;
+  border-radius: 50%;
+  vertical-align: middle;
+  background: radial-gradient(circle at 32% 28%, #fff, var(--ink) 72%);
+  opacity: 0.5;
+}
+
+.flavor-group.signature h3::before {
+  background: radial-gradient(circle at 32% 28%, #fff, var(--orange) 72%);
+}
+
+.flavor-group.sorbets h3::before {
+  background: radial-gradient(circle at 32% 28%, #fff, #8a9b70 72%);
+}
+
+/* На мобильных пятна чуть слабее, чтобы не спорили с текстом */
+@media (max-width: 800px) {
+  .hero::before,
+  .hero::after,
+  .heritage::before {
+    opacity: 0.09;
+  }
+}
